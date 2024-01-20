@@ -1,49 +1,39 @@
 import { log } from "console";
-import { HexaValues, HexaValuesMapped, divmod, reverseString } from "./utils";
+import { HexaValues,  divmod, reverseString } from "./utils";
+import { decimalConversor } from "./decimalConversor";
 
 
-function decimalToHexa(){
+function decimalToHexa(a:number){
   let output="";
   function decimalToHexaOperation(a:number){
  
     const [quotient, remainder]  = divmod(a, 16);
    
     if(quotient<16){
-      //@ts-ignore
-      output+=HexaValues[remainder]
-      //@ts-ignore
-      output+=HexaValues[quotient]
-      //@ts-ignore
-      // output+=HexaValues[remainder]
+      output+=HexaValues[remainder as keyof typeof HexaValues]
+      if(quotient>0) output+=HexaValues[quotient as keyof typeof HexaValues]
       return reverseString(output)
     }else{
-      //@ts-ignore
-      output+=HexaValues[remainder]
+      output+=HexaValues[remainder as keyof typeof HexaValues]
       decimalToHexaOperation(quotient)
     }
   
     return reverseString(output)
   }
 
-  return output
+  return decimalToHexaOperation(a)
 }
 
 
-function hexaToDecimal(a:string){  
-  const convertedString = a.split("")
-  const reversedArray = convertedString.reverse()
-
-  let result = 0
-  
-  reversedArray.forEach((hexa,index)=>{
-    //@ts-ignore
-    const decimalValue = HexaValuesMapped[hexa]
-    result += decimalValue*(16**index)
-
-  })
-
-  return result
+function hexaToDecimal(a:string){
+  return decimalConversor(a, 16)
 }
 
-// log(hexaToDecimal("148C"))
-// log(decimalToHexa(919231231))
+function binaryToDecimal(a:string){
+  return decimalConversor(a, 2)
+}
+
+
+log(binaryToDecimal("101111"));
+log(hexaToDecimal("148C"))
+log(decimalToHexa(919231231))
