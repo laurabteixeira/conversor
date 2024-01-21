@@ -1,6 +1,5 @@
-import { log } from "console";
-import { HexaValues,  HexaValuesMapped,  divmod, makesVariableLengthDivisibleByFour, reverseString } from "./utils";
-import { decimalConversor } from "./decimalConversor";
+import { HexaValues, divmod, makesVariableLengthDivisibleByFour, reverseString } from "./utils";
+import { decimalConversor, decimalToBinary } from "./decimalConversor";
 
 
 function decimalToHexa(a:number){
@@ -47,17 +46,20 @@ function binaryToHexa(input:string){
   return output
 }
 
-log(binaryToHexa("11111"))
+function hexaToBinary(input:string){
+  const decimal = hexaToDecimal(input)
+  const bin = decimalToBinary(decimal)
+  return bin
+}
 
-// DECIMAL PARA BINÁRIO
-
-// HEXADECIMAL PARA BINÁRIO
 
 // BCD PARA DECIMAL
 
 // DECIMAL PARA BCD
 
-
-//log(binaryToDecimal("101111"));
-//log(hexaToDecimal("148C"))
-//log(decimalToHexa(919231231))
+// log(binaryToDecimal("101111"));
+// log(hexaToDecimal("148C"))
+// log(decimalToHexa(919231231))
+// log(decimalToBinary(257))
+// log(binaryToHexa("11111"))
+// log(hexaToBinary("7F"))
