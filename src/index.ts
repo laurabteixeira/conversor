@@ -33,7 +33,22 @@ function binaryToDecimal(a:string){
   return decimalConversor(a, 2)
 }
 
+let output = "";
+function decimalToBinary(a:number){
+  
+  const [quotient, remainder] = divmod(a, 2);
+
+  output += remainder;
+
+  if (quotient >= 1) {
+    decimalToBinary(quotient);
+  }
+
+  return reverseString(output);  
+}
+
 
 log(binaryToDecimal("101111"));
 log(hexaToDecimal("148C"))
 log(decimalToHexa(919231231))
+log(decimalToBinary(257))
