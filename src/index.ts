@@ -1,5 +1,5 @@
 import { log } from "console";
-import { HexaValues,  divmod, reverseString } from "./utils";
+import { HexaValues,  HexaValuesMapped,  divmod, makesVariableLengthDivisibleByFour, reverseString } from "./utils";
 import { decimalConversor } from "./decimalConversor";
 
 
@@ -33,7 +33,31 @@ function binaryToDecimal(a:string){
   return decimalConversor(a, 2)
 }
 
+function binaryToHexa(input:string){
+  let output=""
 
-log(binaryToDecimal("101111"));
-log(hexaToDecimal("148C"))
-log(decimalToHexa(919231231))
+  input =  makesVariableLengthDivisibleByFour(input)
+  const nibbles = input.match(/.{1,4}/g) || []
+
+  nibbles.forEach((nibble)=>{
+    const nibbleInDecimal = binaryToDecimal(nibble)
+    output+=decimalToHexa(nibbleInDecimal)    
+  })
+
+  return output
+}
+
+log(binaryToHexa("11111"))
+
+// DECIMAL PARA BINÁRIO
+
+// HEXADECIMAL PARA BINÁRIO
+
+// BCD PARA DECIMAL
+
+// DECIMAL PARA BCD
+
+
+//log(binaryToDecimal("101111"));
+//log(hexaToDecimal("148C"))
+//log(decimalToHexa(919231231))
