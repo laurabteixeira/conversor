@@ -4,7 +4,15 @@ export function reverseString(str:string) {
   return str.split("").reverse().join("");
 }
 
-
+export function makesVariableLengthDivisibleByFour(input:string){
+  const [_, remainder] =divmod(input.length,4);
+  if(remainder!==0){
+    input = "0"+input
+    return makesVariableLengthDivisibleByFour(input)
+  }else{
+    return input
+  }
+}
 
 export const HexaValuesMapped = {
   "0":0,

@@ -1,4 +1,4 @@
-import { HexaValuesMapped } from "./utils"
+import { HexaValuesMapped, divmod, reverseString } from "./utils"
 
 export function decimalConversor(value:string, fromBase:2|16){
   const convertedString = value.split("")
@@ -13,4 +13,23 @@ export function decimalConversor(value:string, fromBase:2|16){
   })
 
   return result
+}
+
+export function decimalToBinary(input:number){
+  let output=""
+  
+  function decimalToBinaryOperation(a:number){
+    
+    const [quotient, remainder] = divmod(a, 2);
+
+    output += remainder;
+
+    if (quotient >= 1) {
+      decimalToBinaryOperation(quotient);
+    }
+
+    return reverseString(output);  
+  }
+
+  return decimalToBinaryOperation(input)
 }

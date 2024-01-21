@@ -1,6 +1,5 @@
-import { log } from "console";
-import { HexaValues,  divmod, reverseString } from "./utils";
-import { decimalConversor } from "./decimalConversor";
+import { HexaValues, divmod, makesVariableLengthDivisibleByFour, reverseString } from "./utils";
+import { decimalConversor, decimalToBinary } from "./decimalConversor";
 
 
 function decimalToHexa(a:number){
@@ -33,22 +32,34 @@ function binaryToDecimal(a:string){
   return decimalConversor(a, 2)
 }
 
-let output = "";
-function decimalToBinary(a:number){
-  
-  const [quotient, remainder] = divmod(a, 2);
+function binaryToHexa(input:string){
+  let output=""
 
-  output += remainder;
+  input =  makesVariableLengthDivisibleByFour(input)
+  const nibbles = input.match(/.{1,4}/g) || []
 
-  if (quotient >= 1) {
-    decimalToBinary(quotient);
-  }
+  nibbles.forEach((nibble)=>{
+    const nibbleInDecimal = binaryToDecimal(nibble)
+    output+=decimalToHexa(nibbleInDecimal)    
+  })
 
-  return reverseString(output);  
+  return output
+}
+
+function hexaToBinary(input:string){
+  const decimal = hexaToDecimal(input)
+  const bin = decimalToBinary(decimal)
+  return bin
 }
 
 
-log(binaryToDecimal("101111"));
-log(hexaToDecimal("148C"))
-log(decimalToHexa(919231231))
-log(decimalToBinary(257))
+// BCD PARA DECIMAL
+
+// DECIMAL PARA BCD
+
+// log(binaryToDecimal("101111"));
+// log(hexaToDecimal("148C"))
+// log(decimalToHexa(919231231))
+// log(decimalToBinary(257))
+// log(binaryToHexa("11111"))
+// log(hexaToBinary("7F"))
